@@ -26,6 +26,7 @@ func (e *Entry) Marshal() []byte {
 	))
 }
 
+// EntryGen generate new entry
 func EntryGen(contentId int64) *Entry {
 	return &Entry{
 		ContentId: contentId,

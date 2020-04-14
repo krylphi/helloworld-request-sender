@@ -7,6 +7,7 @@ import (
 	"sync"
 )
 
+//Handler handler
 type Handler struct {
 	wg    *sync.WaitGroup
 	pool  int
@@ -16,6 +17,7 @@ type Handler struct {
 	m     chan int
 }
 
+// NewHandler handler constructor
 func NewHandler(url string, pool int, limit int) *Handler {
 	return &Handler{
 		url:   url,
@@ -26,6 +28,7 @@ func NewHandler(url string, pool int, limit int) *Handler {
 	}
 }
 
+// Handle handling function
 func (h *Handler) Handle() {
 	for i := 0; i < h.limit/h.pool; i += 1 {
 		i := int64(i)
