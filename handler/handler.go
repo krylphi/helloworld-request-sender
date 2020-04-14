@@ -35,7 +35,7 @@ func (h *Handler) Handle() {
 			go func() {
 				for k := 1; k <= 100; k++ {
 					k := int64(k)
-					var contentId int64 = i*int64(h.pool) + j*10 + k
+					var contentId int64 = i*int64(h.pool) + j*100 + k
 					log.Print(contentId)
 					req, err := http.NewRequest("POST", h.url, bytes.NewBuffer(EntryGen(contentId).Marshal()))
 					if err != nil {
