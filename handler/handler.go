@@ -8,34 +8,34 @@ import (
 )
 
 type Handler struct {
-	wg *sync.WaitGroup
-	pool int
+	wg    *sync.WaitGroup
+	pool  int
 	limit int
-	ctr int
-	url string
-	m chan int
+	ctr   int
+	url   string
+	m     chan int
 }
 
 func NewHandler(url string, pool int, limit int) *Handler {
 	return &Handler{
-		url: url,
-		pool: pool,
+		url:   url,
+		pool:  pool,
 		limit: limit,
-		wg: &sync.WaitGroup{},
-		m: make(chan int, 1),
+		wg:    &sync.WaitGroup{},
+		m:     make(chan int, 1),
 	}
 }
 
-func (h *Handler)Handle() {
-	for i := 0; i < h.limit / h.pool; i += 1 {
+func (h *Handler) Handle() {
+	for i := 0; i < h.limit/h.pool; i += 1 {
 		i := int64(i)
-		h.wg.Add(h.pool/100)
+		h.wg.Add(h.pool / 100)
 		for j := 0; j < h.pool/100; j += 1 {
 			j := int64(j)
 			go func() {
 				for k := 1; k <= 100; k++ {
-					k:= int64(k)
-					var contentId int64 = i * int64(h.pool) + j * 10 + k
+					k := int64(k)
+					var contentId int64 = i*int64(h.pool) + j*10 + k
 					log.Print(contentId)
 					req, err := http.NewRequest("POST", h.url, bytes.NewBuffer(EntryGen(contentId).Marshal()))
 					if err != nil {

@@ -19,7 +19,7 @@ type Entry struct {
 
 // Marshal marshals entry to json. We do not use json.Marshal because it's slower
 func (e *Entry) Marshal() []byte {
-	return []byte(fmt.Sprintf( `{"text": "hello world", "content_id": %s, "client_id":%s, "timestamp": %s}`,
+	return []byte(fmt.Sprintf(`{"text": "hello world", "content_id": %s, "client_id":%s, "timestamp": %s}`,
 		strconv.FormatInt(e.ContentId, 10),
 		strconv.Itoa(e.ClientId),
 		strconv.FormatInt(e.Timestamp, 10),
@@ -30,6 +30,6 @@ func EntryGen(contentId int64) *Entry {
 	return &Entry{
 		ContentId: contentId,
 		Timestamp: time.Now().UnixNano() / 1000000,
-		ClientId:  rand.Intn(10)+1,
+		ClientId:  rand.Intn(10) + 1,
 	}
 }
