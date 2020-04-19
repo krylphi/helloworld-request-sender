@@ -56,5 +56,6 @@ func (h *Handler) Handle() {
 	for i := 1; i <= h.limit; i++ {
 		h.m <- EntryGen(i)
 	}
+	close(h.m)
 	h.wg.Wait()
 }
